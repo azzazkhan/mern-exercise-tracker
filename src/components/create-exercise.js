@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { Component } from "react"; // Support for JSX syntax
+import axios from "axios"; // For making async calls to backend API
+import DatePicker from "react-datepicker"; // Date picker scripts
+import "react-datepicker/dist/react-datepicker.css"; // Date picker styles
 
+// Main base component
 export default class CreateExercise extends Component {
   constructor(props) {
     super(props);
@@ -24,17 +25,20 @@ export default class CreateExercise extends Component {
     };
   }
 
+  // Called when component is mounted
   componentDidMount() {
+    // Retrieve list of all users from our backend API
     axios
       .get("http://localhost:4000/users/")
-      .then(res => {
-        if (res.data.length > 0)
-          this.setState({
-            users: res.data.map(user => user.username),
-            username: res.data[0].username,
-          });
-      })
-      .catch(err => console.error(err));
+      .then(res =>
+        res.data.length > 0
+          ? this.setState({
+              users: res.data.map(user => user.username),
+              username: res.data[0].username,
+            })
+          : null,
+      )
+      .catch(err => console.error(err)); // Display the error on console
   }
 
   // Change the states when input field's value is changed
@@ -43,24 +47,27 @@ export default class CreateExercise extends Component {
   onChangeDuration = e => this.setState({ duration: Number(e.target.value) });
   onChangeDate = date => this.setState({ date });
 
-  // Prevent form submission
+  // Triggered when trying to submit the form
   onFormSubmit = e => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form submission
     // Get the data from state
     const { username, description, duration, date } = this.state;
     // Create an object for holding values
-    const exercise = { username, description, duration, date };
-    console.log(exercise); // Print the object on console
+    const exercise = {
+      username,
+      description,
+      duration,
+      date,
+    };
+    // console.log(exercise); // Print the object on console
     // Send the data to our backend API
     axios
       .post("http://localhost:4000/exercises/add", exercise)
-      .then(({ data }) => {
-        console.log(data);
-        window.location = "/"; // Redirect to homepage
-      })
-      .catch(err => console.error(err));
+      .then(() => (window.location = "/")) // Redirect to homepage
+      .catch(err => console.error(err)); // Display the error on console
   };
 
+  // Custom object for applying styles
   heading_style = {
     fontSize: "28px",
   };

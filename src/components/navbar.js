@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react"; // Support for JSX syntax
+import { Link } from "react-router-dom"; // Router link component
 
+// Main base component
 export default class Navbar extends Component {
   render() {
     return (
@@ -42,26 +43,3 @@ export default class Navbar extends Component {
     );
   }
 }
-
-/* <nav className="navbar navbar-expanded-lg navbar-dark bg-dark">
-        <Link to="/" className="navbar-brand">
-          Exercise Tracker
-        </Link>
-        <ul className="navbar-nav d-flex">
-          <li className="nav-item d-inline-block">
-            <Link to="/" className="nav-link">
-              Exercises
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/create" className="nav-link">
-              Add Exercise Log
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/user" className="nav-link">
-              Add User
-            </Link>
-          </li>
-        </ul>
-      </nav> */

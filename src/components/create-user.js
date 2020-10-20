@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from "react"; // Support for JSX syntax
+import axios from "axios"; // For making async calls to backend API
 
+// Main base component
 export default class CreateUser extends Component {
   constructor(props) {
     super(props);
@@ -18,21 +19,22 @@ export default class CreateUser extends Component {
   // Change the states when input field's value is changed
   onChangeUsername = e => this.setState({ username: e.target.value });
 
-  // Prevent form submission
+  // Triggered when trying to submit the form
   onFormSubmit = e => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form submission
     // Create an object for holding values
-    const user = { username: this.state.username };
-    console.log(user); // Print the object on console
+    const user = {
+      username: this.state.username,
+    };
+    // console.log(user); // Print the object on console
     // Send the data to backend API
     axios
       .post("http://localhost:4000/users/add", user)
-      .then(({ data }) => console.log(data))
+      .then(() => this.setState({ username: "" }))
       .catch(err => console.error(err));
-
-    this.setState({ username: "" });
   };
 
+  // Custom object for applying styles
   heading_style = {
     fontSize: "28px",
   };

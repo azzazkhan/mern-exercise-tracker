@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { Component } from "react"; // Support for JSX syntax
+import { Link } from "react-router-dom"; // Router link component
+import axios from "axios"; // For making async calls to backend API
 
+// Internal component
 const Exercise = props => (
   <tr>
     <td>{props.exercise.username}</td>
@@ -22,30 +23,32 @@ const Exercise = props => (
   </tr>
 );
 
+// Main base component
 export default class ExercisesList extends Component {
   constructor(props) {
     super(props);
-
     // Set `this` object context to reffer current object
     this.deleteExercise = this.deleteExercise.bind(this);
-
     // Set initial values for states
     this.state = {
       exercises: [], // List of all created exercises
     };
   }
 
+  // Called when component is mounted
   componentDidMount() {
+    // Retrieve list of all exercises from our backend API
     axios
       .get("http://localhost:4000/exercises/")
-      .then(res => {
+      .then(res =>
         this.setState({
           exercises: res.data,
-        });
-      })
-      .catch(err => console.error(err));
+        }),
+      )
+      .catch(err => console.error(err)); // Display the error on console
   }
 
+  // Custom function for removing exercise data from both backend and front-end
   deleteExercise(id) {
     axios
       .delete(`http://localhost:4000/exercises/${id}`)
@@ -60,6 +63,7 @@ export default class ExercisesList extends Component {
       .catch(err => console.error(err));
   }
 
+  // Custom function for creating decleared internal component `Exercise` and passing props to it
   exerciseList() {
     return this.state.exercises.map((exercise, index) => {
       return (
